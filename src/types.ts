@@ -1,48 +1,61 @@
-enum DiscountType {
+export enum DiscountType {
   Percent = "Percent",
   Number = "Number",
 }
 
-enum PromoCodeType {
+export enum PromoCodeType {
   Quantity = "Quantity",
   Total = "Total",
   PerProduct = "PerProduct",
 }
 
-interface ProductPromo {
+export interface PromoCodeDetailsByProduct {
   readonly [key: string]: {
     readonly minimumQuantity: number;
     readonly discountInPrice: number;
   };
 }
 
-interface ProductPromoForTotal {
+export interface PromoCodeConstraintsForTotal {
   readonly discount: number; // in percentage,
   readonly minimum: number;
 }
 
-interface PromoCodeForQuantity {
-  readonly type: PromoCodeType.Quantity;
-  readonly promoCodeInfo: ProductPromo;
+export interface ProductCombination {
+  readonly productCombination: PromoCodeDetailsByProduct;
 }
 
-interface ProductCombination {
-  readonly productCombination: ProductPromo;
-}
-
-interface PromoCodeForPerProduct extends ProductCombination {
+export interface PromoCodeDetailsForPerProduct extends ProductCombination {
   readonly type: PromoCodeType.PerProduct;
 }
 
-interface PromoCodeForTotal {
+export interface PromoCodeDetailsForTotal {
   readonly type: PromoCodeType.Total;
-  readonly promoCodeInfo: ProductPromoForTotal;
+  readonly promoCodeDetails: PromoCodeConstraintsForTotal;
 }
 
-interface PromoCode {
+export interface PromoCodeDetailsForQuantity {
+  readonly type: PromoCodeType.Quantity;
+  readonly promoCodeDetails: PromoCodeDetailsByProduct;
+}
+
+export interface PromoCode {
   readonly discountType: DiscountType;
   readonly details:
-    | PromoCodeForQuantity
-    | PromoCodeForTotal
-    | PromoCodeForPerProduct;
+    | PromoCodeDetailsForQuantity
+    | PromoCodeDetailsForTotal
+    | PromoCodeDetailsForPerProduct;
+}
+
+// Product
+
+export interface Product {
+  readonly name: string;
+  readonly price: number;
+  readonly productCode: string;
+  readonly productId: string;
+}
+
+export interface ProductAggregator {
+  readonly [key: string]: Product;
 }
