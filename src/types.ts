@@ -57,5 +57,8 @@ export interface Product {
 }
 
 export interface ProductAggregator {
-  readonly [key: string]: Product;
+  readonly byProductId: {
+    [key: string]: Product;
+  };
+  readonly productIds: string[];
 }
