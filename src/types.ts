@@ -12,7 +12,7 @@ export enum PromoCodeType {
 export interface PromoCodeDetailsByProduct {
   readonly [key: string]: {
     readonly minimumQuantity: number;
-    readonly discountInPrice: number;
+    readonly discountInPricePerProduct: number;
   };
 }
 
@@ -57,8 +57,5 @@ export interface Product {
 }
 
 export interface ProductAggregator {
-  readonly byProductId: {
-    [key: string]: Product;
-  };
-  readonly productIds: string[];
+  [key: string]: Product[];
 }
