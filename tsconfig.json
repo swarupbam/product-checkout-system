@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "moduleResolution": "node",
     "module": "commonjs",
     "declaration": false,
@@ -17,9 +17,9 @@
     "outDir": "dist/",
     "baseUrl": "src/",
     "listFiles": false,
-    "noEmitHelpers": true
+    "noEmitHelpers": true,
+    "lib": ["es5", "es6", "dom"]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"],
-  "compileOnSave": false
+  "exclude": ["node_modules"]
 }
