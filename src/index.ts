@@ -1,7 +1,5 @@
 import { ProductScanner } from "./productScanner";
 import { DiscountType, Product, PromoCode, PromoCodeType } from "./types";
-import { enableAllPlugins } from "immer";
-enableAllPlugins();
 
 const PROMO_CODES: PromoCode[] = [
   {
@@ -26,27 +24,27 @@ const PROMO_CODES: PromoCode[] = [
       },
     },
   },
-  {
-    discountType: DiscountType.Percent,
-    details: {
-      type: PromoCodeType.Total,
-      promoCodeDetails: {
-        discount: 10,
-        minimum: 50,
-      },
-    },
-  },
+  // {
+  //   discountType: DiscountType.Percent,
+  //   details: {
+  //     type: PromoCodeType.Total,
+  //     promoCodeDetails: {
+  //       discount: 10,
+  //       minimum: 50,
+  //     },
+  //   },
+  // },
   {
     discountType: DiscountType.Number,
     details: {
       type: PromoCodeType.PerProduct,
       productCombination: {
-        product_1: {
+        product_code_1: {
           discountInPricePerProduct: 5,
           minimumQuantity: 2,
         },
-        product_2: {
-          discountInPricePerProduct: 3.5,
+        product_code_2: {
+          discountInPricePerProduct: 1,
           minimumQuantity: 2,
         },
       },
@@ -72,6 +70,18 @@ const PRODUCTS: Product[] = [
     price: 20.5,
     productCode: "product_code_1",
     productId: "102",
+  },
+  {
+    name: "Coke",
+    price: 7.5,
+    productCode: "product_code_2",
+    productId: "103",
+  },
+  {
+    name: "Coke",
+    price: 7.5,
+    productCode: "product_code_2",
+    productId: "104",
   },
 ];
 
