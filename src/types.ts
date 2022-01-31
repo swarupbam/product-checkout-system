@@ -28,10 +28,6 @@ export interface PromoCodeConstraintsForTotal {
   readonly minimum: number;
 }
 
-export interface ProductCombinationForTotal {
-  readonly discount: number;
-}
-
 export interface PromoCodeDetailsForPerProductByTotal {
   readonly discountType: DiscountType;
   readonly type: PromoCodeType.PerProductByTotal;
@@ -63,8 +59,6 @@ export type PromoCode =
   | PromoCodeDetailsForPerProductByQuantity
   | PromoCodeDetailsForPerProductByTotal;
 
-// Product
-
 export interface Product {
   readonly name: string;
   readonly price: number;
@@ -73,7 +67,7 @@ export interface Product {
 }
 
 export interface ProductAggregator {
-  [key: string]: Product[];
+  readonly [key: string]: Product[];
 }
 
 export enum ProductCode {
