@@ -233,7 +233,7 @@ describe("Product scanner tests", () => {
           [ProductCode.ProductCode1]: {
             minimumQuantity: 1,
           },
-          [ProductCode.ProductCode2]: {
+          [ProductCode.ProductCode3]: {
             minimumQuantity: 1,
           },
         },

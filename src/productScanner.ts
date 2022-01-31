@@ -82,20 +82,19 @@ export class ProductScanner {
     promoCode: PromoCodeDetailsForPerProductByTotal
   ): number {
     let totalDiscount = 0;
-
-    if (this.isPromoCodeOfTypePercentage(promoCode)) {
-      totalDiscount = this.calculateDiscountInPercentage(promoCode.discount);
-    } else {
-      const isApplicable = Object.keys(promoCode.productCombination).every(
-        (productCode) => {
-          return (
-            this.products[productCode] &&
-            promoCode.productCombination[productCode].minimumQuantity <=
-              this.products[productCode].length
-          );
-        }
-      );
-      totalDiscount = promoCode.discount;
+    const isApplicable = Object.keys(promoCode.productCombination).every(
+      (productCode) => {
+        return (
+          this.products[productCode] &&
+          promoCode.productCombination[productCode].minimumQuantity <=
+            this.products[productCode].length
+        );
+      }
+    );
+    if (isApplicable) {
+      return this.isPromoCodeOfTypePercentage(promoCode)
+        ? this.calculateDiscountInPercentage(promoCode.discount)
+        : promoCode.discount;
     }
     return totalDiscount;
   }
