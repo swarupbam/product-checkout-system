@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest tests/*.test.ts",
     "build": "tsc -p .",
-    "execute": "node dist/index.js",
+    "run-js": "npm run build && node dist/index.js",
     "run-ts": "ts-node --project tsconfig.json src/index.ts"
   },
   "repository": {
