@@ -4,7 +4,7 @@
   "description": "A simple product checkout utility",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest tests/*.test.ts",
     "build": "tsc -p .",
     "execute": "node dist/index.js",
     "run-ts": "ts-node --project tsconfig.json src/index.ts"
