@@ -1,13 +1,12 @@
+import produce from "immer";
 import {
   DiscountType,
   Product,
   ProductAggregator,
-  ProductCombination,
   PromoCode,
   PromoCodeDetailsByProduct,
   PromoCodeType,
 } from "./types";
-import produce from "immer";
 
 export class ProductScanner {
   private products: ProductAggregator = {};
@@ -56,19 +55,6 @@ export class ProductScanner {
         : promoCode.details.promoCodeDetails.discount;
     }
     return 0;
-  }
-
-  private isPerProductPromoApplicable(
-    productCombination: PromoCodeDetailsByProduct
-  ) {
-    let isEveryProductPresentInCart = true;
-
-    for (const productGroupId in productCombination) {
-      if (!this.products[productGroupId]) {
-        return false;
-      }
-    }
-    return isEveryProductPresentInCart;
   }
 
   private calculateDiscountForPerProductPromoCode(
