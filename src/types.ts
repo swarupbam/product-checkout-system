@@ -6,7 +6,14 @@ export enum DiscountType {
 export enum PromoCodeType {
   Quantity = "Quantity",
   Total = "Total",
-  PerProduct = "PerProduct",
+  PerProductByTotal = "PerProductByTotal",
+  PerProductByQuantity = "PerProductByQuantity",
+}
+
+export interface PromoCodeDetailsByProductByTotal {
+  readonly [key: string]: {
+    readonly minimumQuantity: number;
+  };
 }
 
 export interface PromoCodeDetailsByProduct {
@@ -21,31 +28,40 @@ export interface PromoCodeConstraintsForTotal {
   readonly minimum: number;
 }
 
-export interface ProductCombination {
-  readonly productCombination: PromoCodeDetailsByProduct;
+export interface ProductCombinationForTotal {
+  readonly discount: number;
 }
 
-export interface PromoCodeDetailsForPerProduct extends ProductCombination {
-  readonly type: PromoCodeType.PerProduct;
+export interface PromoCodeDetailsForPerProductByTotal {
+  readonly discountType: DiscountType;
+  readonly type: PromoCodeType.PerProductByTotal;
+  readonly discount: number;
+  readonly productCombination: PromoCodeDetailsByProductByTotal;
+}
+
+export interface PromoCodeDetailsForPerProductByQuantity {
+  readonly discountType: DiscountType;
+  readonly type: PromoCodeType.PerProductByQuantity;
+  readonly productCombination: PromoCodeDetailsByProduct;
 }
 
 export interface PromoCodeDetailsForTotal {
   readonly type: PromoCodeType.Total;
+  readonly discountType: DiscountType;
   readonly promoCodeDetails: PromoCodeConstraintsForTotal;
 }
 
 export interface PromoCodeDetailsForQuantity {
   readonly type: PromoCodeType.Quantity;
+  readonly discountType: DiscountType;
   readonly promoCodeDetails: PromoCodeDetailsByProduct;
 }
 
-export interface PromoCode {
-  readonly discountType: DiscountType;
-  readonly details:
-    | PromoCodeDetailsForQuantity
-    | PromoCodeDetailsForTotal
-    | PromoCodeDetailsForPerProduct;
-}
+export type PromoCode =
+  | PromoCodeDetailsForQuantity
+  | PromoCodeDetailsForTotal
+  | PromoCodeDetailsForPerProductByQuantity
+  | PromoCodeDetailsForPerProductByTotal;
 
 // Product
 

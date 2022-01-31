@@ -5,6 +5,7 @@ import {
   ProductAggregator,
   PromoCode,
   PromoCodeDetailsByProduct,
+  PromoCodeDetailsForPerProductByTotal,
   PromoCodeType,
 } from "./types";
 
@@ -45,14 +46,14 @@ export class ProductScanner {
 
   private calculateDiscountForTotalPromoCode(promoCode: PromoCode): number {
     if (
-      promoCode.details.type === PromoCodeType.Total &&
-      promoCode.details.promoCodeDetails.minimum <= this.totalProductsValue
+      promoCode.type === PromoCodeType.Total &&
+      promoCode.promoCodeDetails.minimum <= this.totalProductsValue
     ) {
       return this.isPromoCodeOfTypePercentage(promoCode)
         ? this.calculateDiscountInPercentage(
-            promoCode.details.promoCodeDetails.discount
+            promoCode.promoCodeDetails.discount
           )
-        : promoCode.details.promoCodeDetails.discount;
+        : promoCode.promoCodeDetails.discount;
     }
     return 0;
   }
@@ -77,18 +78,42 @@ export class ProductScanner {
     return totalDiscount;
   }
 
+  private calculateDiscountForPerProductByToalPromoCode(
+    promoCode: PromoCodeDetailsForPerProductByTotal
+  ): number {
+    let totalDiscount = 0;
+
+    if (this.isPromoCodeOfTypePercentage(promoCode)) {
+      totalDiscount = this.calculateDiscountInPercentage(promoCode.discount);
+    } else {
+      const isApplicable = Object.keys(promoCode.productCombination).every(
+        (productCode) => {
+          return (
+            this.products[productCode] &&
+            promoCode.productCombination[productCode].minimumQuantity <=
+              this.products[productCode].length
+          );
+        }
+      );
+      totalDiscount = promoCode.discount;
+    }
+    return totalDiscount;
+  }
+
   private getDiscountByPromoCodeType(promoCode: PromoCode): number {
-    switch (promoCode.details.type) {
+    switch (promoCode.type) {
       case PromoCodeType.Quantity:
         return this.calculateDiscountForQuantityPromoCode(
-          promoCode.details.promoCodeDetails
+          promoCode.promoCodeDetails
         );
       case PromoCodeType.Total:
         return this.calculateDiscountForTotalPromoCode(promoCode);
-      case PromoCodeType.PerProduct:
+      case PromoCodeType.PerProductByQuantity:
         return this.calculateDiscountForPerProductPromoCode(
-          promoCode.details.productCombination
+          promoCode.productCombination
         );
+      case PromoCodeType.PerProductByTotal:
+        return this.calculateDiscountForPerProductByToalPromoCode(promoCode);
     }
   }
 
