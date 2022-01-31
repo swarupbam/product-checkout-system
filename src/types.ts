@@ -75,3 +75,11 @@ export interface Product {
 export interface ProductAggregator {
   [key: string]: Product[];
 }
+
+export enum ProductCode {
+  ProductCode1 = "ProductCode1",
+  ProductCode2 = "ProductCode2",
+  ProductCode3 = "ProductCode3",
+  ProductCode4 = "ProductCode4",
+  ProductCode5 = "ProductCode5",
+}

@@ -1,13 +1,11 @@
 import { ProductScanner } from "./productScanner";
-import { DiscountType, Product, PromoCode, PromoCodeType } from "./types";
-
-enum ProductCode {
-  ProductCode1 = "ProductCode1",
-  ProductCode2 = "ProductCode2",
-  ProductCode3 = "ProductCode3",
-  ProductCode4 = "ProductCode4",
-  ProductCode5 = "ProductCode5",
-}
+import {
+  DiscountType,
+  Product,
+  ProductCode,
+  PromoCode,
+  PromoCodeType,
+} from "./types";
 
 const PROMO_CODES: PromoCode[] = [
   {
